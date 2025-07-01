@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AccountFromRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
@@ -29,51 +30,43 @@ class SalesforceAccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // need to implement reliable validator
-        $validated =  $request->validate(
-            [
-                'account-name' => ['required', "max:255"],
-                'annual-revenue' => ['numeric'],
-                "employees" => ['numeric',],
-                "phone" => ['nullable'],
-                "fax" => ['nullable'],
-                'ticker-symbol' => ['nullable'],
-                'sic' => ['numeric', 'nullable',],
-                "site" => ['nullable']
-            ]
-        );
 
+    public function store(AccountFromRequest $request)
+    {
+        $validated = $request->validated();
         $instance_url = session('sf_instance_url');
         $access_token = session('sf_access_token');
         $version = 'v62.0';
         $url = "$instance_url/services/data/$version/sobjects/$this->object_name";
         $response = Http::withToken($access_token)->post($url, [
-            "Name" => $request->get('account-name'),
-            "Phone" => $request->get('phone'),
-            'Fax' => $request->get('fax'),
-            "AnnualRevenue" => $request->get("annual-revenue"),
-            "TickerSymbol" => $request->get("TickerSymbol"),
-            "sic" => $request->get('sic'),
-            "NumberOfEmployees" => $request->get("employees"),
-            "Site" => $request->get('account-site')
+            "Name" => $validated['account-name'],
+            "Phone" => $validated['phone'],
+            'Fax' => $validated['fax'],
+            "AnnualRevenue" => $validated["annual-revenue"],
+            "TickerSymbol" => $validated["ticker-symbol"],
+            "sic" => $validated['sic-code'],
+            "NumberOfEmployees" => $validated["employees"],
 
+            // "Site" => $validated['website']
             // "Rating" => $request->get('rating'),
             // "ParentAccount" => $request->get('parent-account'),
             // "Type" => $request->get('type'),
             // "Ownership" => $request->get('ownership'),
             // "Industry" => $request->get("industry"),
+
         ]);
+
         if ($response->failed()) {
             return $response->body();
         }
+
         return view('components.success');
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
         //

@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <div>
         <!-- Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi -->
         <h2 class="h-screen flex flex-col justify-center items-center">
