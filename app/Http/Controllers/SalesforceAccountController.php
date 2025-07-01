@@ -31,18 +31,45 @@ class SalesforceAccountController extends Controller
      */
     public function store(Request $request)
     {
-        $account_name = $request->get('account-name');
+        // need to implement reliable validator
+        $validated =  $request->validate(
+            [
+                'account-name' => ['required', "max:255"],
+                'annual-revenue' => ['numeric'],
+                "employees" => ['numeric',],
+                "phone" => ['nullable'],
+                "fax" => ['nullable'],
+                'ticker-symbol' => ['nullable'],
+                'sic' => ['numeric', 'nullable',],
+                "site" => ['nullable']
+            ]
+        );
+
+        dd($validated);
         $instance_url = session('sf_instance_url');
         $access_token = session('sf_access_token');
         $version = 'v62.0';
-
         $url = "$instance_url/services/data/$version/sobjects/$this->object_name";
-
         $response = Http::withToken($access_token)->post($url, [
-            "Name" => $account_name
+            "Name" => $request->get('account-name'),
+            "Phone" => $request->get('phone'),
+            'Fax' => $request->get('fax'),
+            "AnnualRevenue" => $request->get("annual-revenue"),
+            "TickerSymbol" => $request->get("TickerSymbol"),
+            "sic" => $request->get('sic'),
+            "NumberOfEmployees" => $request->get("employees"),
+            "Site" => $request->get('account-site')
+
+            // "Rating" => $request->get('rating'),
+            // "ParentAccount" => $request->get('parent-account'),
+            // "Type" => $request->get('type'),
+            // "Ownership" => $request->get('ownership'),
+            // "Industry" => $request->get("industry"),
         ]);
+
         return $response->body();
     }
+
     /**
      * Display the specified resource.
      */

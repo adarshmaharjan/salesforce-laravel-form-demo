@@ -4,14 +4,38 @@
         <form action="{{ route('create-account') }}" method="post">
             @csrf
             <div class="flex flex-col justify-center items-center">
-                <div class="flex w-1/2 py-4 px-8">
-                    {{-- Account Name --}}
-                    <div class="flex flex-col gap-2 w-full ">
-                        <label for="address" class="text-lg">Account Name</label>
-                        <input type="text" name="account-name"
-                            class="border focus:border-none rounded-md px-4 py-2 inline-block w-full"
-                            :value="old("account-name")">
+                {{-- Account Information  --}}
+                <div class="w-1/2 py-4 px-8 ">
+                    <div class="text-2xl my-4">Account Information</div>
+                    <div class="grid grid-cols-2 gap-y-2 gap-x-4">
+
+                        <x-text-input name="account-name" label="Account Name" />
+                        <x-text-input name="phone" label="Phone" />
+                        <x-text-input name="fax" label="Fax" />
+                        <x-text-input name="account-number" label="Account Number" />
+
+                        <x-text-input name="website" label="Website" />
+                        <x-text-input name="account-site" label="Account Site" />
+                        <x-text-input name="ticker-symbol" label="Ticker Symbol" />
+
+                        <x-text-input name="employees" label="Employees" />
+                        <x-text-input name="annual-revenue" label="Annual Revenue" />
+                        <x-text-input name="sic-code" label="SIC Code" />
+
+                        {{-- Need extra data  --}}
+
+                        {{-- <x-text-input name="account-owner" label="Account Owner" /> --}}
+                        {{-- <x-text-input name="rating" label="Rating" /> --}}
+                        {{-- <x-text-input name="parent-account" label="Parent Account" /> --}}
+                        {{-- <x-text-input name="type" label="Type" /> --}}
+                        {{-- <x-text-input name="ownership" label="Ownership" /> --}}
+                        {{-- <x-text-input name="industry" label="Industry" /> --}}
+
                     </div>
+                </div>
+
+                <div class="w-1/2 py-4 px-8 ">
+                    <h3>Custom Field types</h3>
                 </div>
                 <button type="submit"
                     class="px-4 py-2 rounded-md bg-green-400 hover:cursor-pointer hover:text-white transition-all">Submit</button>
