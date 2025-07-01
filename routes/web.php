@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\SalesforceAccountController;
 use App\Http\Controllers\SalesforceController;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;

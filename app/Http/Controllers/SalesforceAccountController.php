@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
 class SalesforceAccountController extends Controller
 {
+    public $object_name = "Account";
+
     /**
      * Display a listing of the resource.
      */
@@ -30,11 +33,15 @@ class SalesforceAccountController extends Controller
     {
         $account_name = $request->get('account-name');
         $instance_url = session('sf_instance_url');
-        $version = 62.0;
-        $object_name = "Account";
-        $response = Http::withUrlParameters([
-            
-        ])->post($instance_url . '/services/data', []);
+        $access_token = session('sf_access_token');
+        $version = 'v62.0';
+
+        $url = "$instance_url/services/data/$version/sobjects/$this->object_name";
+
+        $response = Http::withToken($access_token)->post($url, [
+            "Name" => $account_name
+        ]);
+        return $response->body();
     }
     /**
      * Display the specified resource.
