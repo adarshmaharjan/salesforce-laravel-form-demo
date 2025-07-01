@@ -6,17 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [SalesforceAccountController::class, 'index'])->name('home');
 
-Route::get('/authenticate', function () {
-    return view('authenticate');
-});
 
 Route::get('/auth/salesforce', [SalesforceController::class, 'redirectToSalesforce'])->name('verify.salesforce');
 
 Route::get('/callback', [SalesforceController::class, 'handleCallback']);
+
 
 Route::get('/salesforce/data', [SalesforceController::class, 'querySalesforceData']);
 

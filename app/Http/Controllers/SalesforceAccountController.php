@@ -15,7 +15,7 @@ class SalesforceAccountController extends Controller
      */
     public function index()
     {
-        //
+        return view('home');
     }
 
     /**
@@ -23,7 +23,7 @@ class SalesforceAccountController extends Controller
      */
     public function create()
     {
-        return view('sobject-form');
+        return view('account-form');
     }
 
     /**
@@ -45,7 +45,6 @@ class SalesforceAccountController extends Controller
             ]
         );
 
-        dd($validated);
         $instance_url = session('sf_instance_url');
         $access_token = session('sf_access_token');
         $version = 'v62.0';
@@ -66,8 +65,10 @@ class SalesforceAccountController extends Controller
             // "Ownership" => $request->get('ownership'),
             // "Industry" => $request->get("industry"),
         ]);
-
-        return $response->body();
+        if ($response->failed()) {
+            return $response->body();
+        }
+        return view('components.success');
     }
 
     /**
