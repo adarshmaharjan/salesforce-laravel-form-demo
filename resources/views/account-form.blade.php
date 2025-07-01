@@ -28,7 +28,6 @@
                             @enderror
                         </div>
 
-
                         <div class="flex flex-col gap-1 w-full">
                             <label for="address" class="text-md">Fax</label>
                             <input type="text" name="account-number"

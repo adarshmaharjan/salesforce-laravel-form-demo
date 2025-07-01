@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountFromRequest;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
 class SalesforceAccountController extends Controller
@@ -46,14 +45,12 @@ class SalesforceAccountController extends Controller
             "TickerSymbol" => $validated["ticker-symbol"],
             "sic" => $validated['sic-code'],
             "NumberOfEmployees" => $validated["employees"],
-
             // "Site" => $validated['website']
             // "Rating" => $request->get('rating'),
             // "ParentAccount" => $request->get('parent-account'),
             // "Type" => $request->get('type'),
             // "Ownership" => $request->get('ownership'),
             // "Industry" => $request->get("industry"),
-
         ]);
 
         if ($response->failed()) {
