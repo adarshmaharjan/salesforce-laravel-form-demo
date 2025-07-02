@@ -33,7 +33,7 @@ Route::get('/salesforce/account/{id}', [SalesforceAccountController::class, 'sho
 
 Route::get('/salesforce/account/{id}/edit', [SalesforceAccountController::class, 'edit'])->name('edit-account');
 
-Route::post('/salesforce/account/{id}/edit', [SalesforceAccountController::class, 'update'])->name('update-account');
+Route::post('/salesforce/account/{id}/update', [SalesforceAccountController::class, 'update'])->name('update-account');
 
 
 

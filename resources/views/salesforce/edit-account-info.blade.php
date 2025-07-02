@@ -1,7 +1,9 @@
 <x-app-layout>
     <section>
 
-        <form action="{{ route('update-account', $account['Id']) }}" method="POST">
+        <form action="{{ route('update-account', [
+            'id' => $account['Id'],
+        ]) }}" method="POST">
             @csrf
             <div class="flex flex-col justify-center items-center">
                 <h2 class="text-center text-3xl py-4">Details fo the account</h2>
