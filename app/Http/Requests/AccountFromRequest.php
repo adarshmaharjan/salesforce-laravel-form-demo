@@ -29,7 +29,8 @@ class AccountFromRequest extends FormRequest
             "fax" => ['nullable'],
             'ticker-symbol' => ['nullable'],
             'sic-code' => ['numeric', 'nullable',],
-            "site" => ['nullable']
+            "account-site" => ['nullable'],
+            "website" => ['nullable']
         ];
     }
 }

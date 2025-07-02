@@ -9,7 +9,7 @@
             </div>
             <ul class="divide-y divide-gray-200 dark:divide-gray-700 mt-4 flex flex-col gap-y-3">
                 @foreach ($data['records'] as $record)
-                    <a href="#">
+                    <a href="/salesforce/account/{{ $record['Id'] }}">
                         <li class="pb-3 sm:pb-4">
                             <div class="flex items-center space-x-4 rtl:space-x-reverse">
                                 <div class="shrink-0">

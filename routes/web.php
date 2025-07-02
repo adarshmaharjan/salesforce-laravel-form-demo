@@ -23,9 +23,23 @@ Route::get('/callback', [SalesforceController::class, 'handleCallback']);
 
 Route::get('/salesforce/accounts', [SalesforceAccountController::class, 'index'])->name('account');
 
-Route::get('/salesforce/create/account', [SalesforceAccountController::class, 'create'])->name('create-account');
+Route::get('/salesforce/account/create', [SalesforceAccountController::class, 'create'])->name('create-account');
 
-Route::post('/salesforce/create/account', [SalesforceAccountController::class, 'store'])->name('post-account');
+Route::post('/salesforce/account/create', [SalesforceAccountController::class, 'store'])->name('post-account');
+
+
+
+Route::get('/salesforce/account/{id}', [SalesforceAccountController::class, 'show'])->name('show-account');
+
+Route::get('/salesforce/account/{id}/edit', [SalesforceAccountController::class, 'edit'])->name('edit-account');
+
+Route::post('/salesforce/account/{id}/edit', [SalesforceAccountController::class, 'update'])->name('update-account');
+
+
+
+
+
+
 
 Route::get('/flush', function (Request $request) {
     $request->session()->flush();

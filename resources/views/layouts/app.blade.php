@@ -12,7 +12,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased box-border">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
         <!-- Page Heading -->
@@ -24,7 +24,12 @@
             </header>
         @endisset
         <!-- Page Content -->
-        <main>
+        <main class="">
+            <h1 class=" bg-gray-800 text-white text-3xl flex justify-center items-center h-20">
+                <a href="{{ route('home') }}">
+                    Salesforce Rest Api Form
+                </a>
+            </h1>
             {{ $slot }}
         </main>
     </div>
