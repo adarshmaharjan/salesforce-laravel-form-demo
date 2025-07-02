@@ -36,7 +36,6 @@ class SalesforceController extends Controller
         ]);
 
         if ($response->failed()) {
-            dump($response->body());
             return response()->json(['error' => 'Failed to get the token', 'details' => $response->body()]);
         }
         $data = $response->json();
@@ -47,7 +46,7 @@ class SalesforceController extends Controller
             'sf_instance_url' => $data['instance_url']
         ]);
 
-        return Redirect::to('/create');
+        return redirect()->route('account');
     }
 
 

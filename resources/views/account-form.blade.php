@@ -1,7 +1,7 @@
 <x-app-layout>
     <section>
 
-        <form action="{{ route('create-account') }}" method="post">
+        <form action="{{ route('post-account') }}" method="post">
             @csrf
             <div class="flex flex-col justify-center items-center">
                 <h2 class="text-center text-3xl py-4">Fill the form the create the Salesforce Account Object</h2>
