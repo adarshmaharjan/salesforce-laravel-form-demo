@@ -35,11 +35,7 @@ Route::get('/salesforce/account/{id}/edit', [SalesforceAccountController::class,
 
 Route::post('/salesforce/account/{id}/update', [SalesforceAccountController::class, 'update'])->name('update-account');
 
-
-
-
-
-
+Route::get('/salesforce/account/{id}/delete', [SalesforceAccountController::class, 'destroy'])->name('delete-account');
 
 Route::get('/flush', function (Request $request) {
     $request->session()->flush();

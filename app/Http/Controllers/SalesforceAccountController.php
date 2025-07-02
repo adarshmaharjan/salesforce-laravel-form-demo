@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountFromRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class SalesforceAccountController extends Controller
@@ -127,26 +126,29 @@ class SalesforceAccountController extends Controller
      */
     public function update(AccountFromRequest $request, string $id)
     {
-        // $validated = $request->validated();
-        // $payload = [
-        //     "Name" => $validated['account-name'],
-        //     "Phone" => $validated['phone'],
-        //     'Fax' => $validated['fax'],
-        //     "AnnualRevenue" => $validated["annual-revenue"],
-        //     "TickerSymbol" => $validated["ticker-symbol"],
-        //     "Sic" => $validated['sic-code'],
-        //     "NumberOfEmployees" => $validated["employees"],
-        //     "Site" => $validated['account-site'],
-        //     "Website" => $validated['website']
-        // ];
+        $validated = $request->validated();
+        $payload = [
+            "Name" => $validated['account-name'],
+            "Phone" => $validated['phone'],
+            'Fax' => $validated['fax'],
+            "AnnualRevenue" => $validated["annual-revenue"],
+            "TickerSymbol" => $validated["ticker-symbol"],
+            "Sic" => $validated['sic-code'],
+            "NumberOfEmployees" => $validated["employees"],
+            "Site" => $validated['account-site'],
+            "Website" => $validated['website']
+        ];
 
-        // $response = Http::withToken($this->access_token)->patch($this->salesforceBaseUrl . "/sobjects/$this->object_name", $payload);
 
-        // if ($response->failed()) {
-        //     return $response->body();
-        // }
+        $response = Http::withToken($this->access_token)->patch($this->salesforceBaseUrl . "/sobjects/$this->object_name/$id", $payload);
 
-        return view('components.success');
+        if ($response->failed()) {
+            return $response->body();
+        }
+
+        return redirect()->route('show-account', [
+            'id' => $id
+        ]);
     }
 
     /**
@@ -154,6 +156,11 @@ class SalesforceAccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $response = Http::withToken($this->access_token)->delete($this->salesforceBaseUrl . "/sobjects/$this->object_name/$id");
+
+        if ($response->failed()) {
+            return $response->body();
+        }
+        return redirect()->route('account');
     }
 }
